@@ -65,6 +65,8 @@ const TodoForm: view = ({
 };
 
 const stateProducer: producer = ({ form, updateState = Update.todoForm }) => {
+  if(!form) return
+  
   let state = {
     title: "",
     description: "",

@@ -4,7 +4,7 @@ import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import ActionIcons from "components/ActionIcons";
+import ActionIcons from "../../components/ActionIcons";
 import { view, producer, Observe, Path, Update, Get } from "@c11/engine.macro";
 
 const TodoList: view = ({ list = Observe.todo.byId, mode = Update.mode }) => {
@@ -55,6 +55,7 @@ const deleteListItem: producer = ({
   updateList = Update.todo.byId,
   listGetter = Get.todo.byId,
 }) => {
+  if (!action) return
   if (action.type !== "delete") return;
   const list = listGetter();
   delete list[action.value];
@@ -70,6 +71,7 @@ const checkListItem: producer = ({
   updateList = Update.todo.byId,
   listGetter = Get.todo.byId,
 }) => {
+  if (!action) return
   if (!["check", "uncheck"].includes(action.type)) return;
   const list = listGetter();
   Object.assign(list[action.value], {
@@ -88,6 +90,7 @@ const editListItem: producer = ({
   updateMode = Update.mode,
   listGetter = Get.todo.byId,
 }) => {
+  if (!action) return
   if (action.type !== "edit") return;
   updateMode.set({
     type: "edit",

@@ -14,14 +14,10 @@ describe('deleteListItem', () => {
       presets: {},
       expectations: {
         resetAction: {
-          set: {
-            count: 0
-          }
+          set: []
         },
         updateList: {
-          set: {
-            count: 0
-          }
+          set: []
         }
       }
     })
@@ -37,14 +33,10 @@ describe('deleteListItem', () => {
       },
       expectations: {
         resetAction: {
-          set: {
-            count: 0
-          }
+          set: []
         },
         updateList: {
-          set: {
-            count: 0
-          }
+          set: []
         }
       }
     })
@@ -65,21 +57,23 @@ describe('deleteListItem', () => {
       },
       expectations: {
         resetAction: {
-          set: {
-            count: 1,
-            equal: {
-              type: undefined,
-              value: undefined
+          set: [
+            {
+              equal: {
+                type: undefined,
+                value: undefined
+              }
             }
-          }
+          ]
         },
         updateList: {
-          set: {
-            count: 1,
-            equal: {
-              second: {}
+          set: [
+            {
+              equal: {
+                second: {}
+              }
             }
-          }
+          ]
         }
       }
     })
@@ -93,14 +87,10 @@ describe('checkListItem', () => {
       presets: {},
       expectations: {
         resetAction: {
-          set: {
-            count: 0
-          }
+          set: []
         },
         updateList: {
-          set: {
-            count: 0
-          }
+          set: []
         }
       }
     })
@@ -116,14 +106,10 @@ describe('checkListItem', () => {
       },
       expectations: {
         resetAction: {
-          set: {
-            count: 0
-          }
+          set: []
         },
         updateList: {
-          set: {
-            count: 0
-          }
+          set: []
         }
       }
     })
@@ -148,26 +134,28 @@ describe('checkListItem', () => {
       },
       expectations: {
         resetAction: {
-          set: {
-            count: 1,
-            equal: {
-              type: undefined,
-              value: undefined,
-            }
-          }
-        },
-        updateList: {
-          set: {
-            count: 1,
-            equal: {
-              first: {
-                completed: true
-              },
-              second: {
-                completed: true
+          set: [
+            {
+              equal: {
+                type: undefined,
+                value: undefined,
               }
             }
-          }
+          ]
+        },
+        updateList: {
+          set: [
+            {
+              equal: {
+                first: {
+                  completed: true
+                },
+                second: {
+                  completed: true
+                }
+              }
+            }
+          ]
         }
       }
     })
@@ -192,26 +180,28 @@ describe('checkListItem', () => {
       },
       expectations: {
         resetAction: {
-          set: {
-            count: 1,
-            equal: {
-              type: undefined,
-              value: undefined,
-            }
-          }
-        },
-        updateList: {
-          set: {
-            count: 1,
-            equal: {
-              first: {
-                completed: false
-              },
-              second: {
-                completed: true
+          set: [
+            {
+              equal: {
+                type: undefined,
+                value: undefined,
               }
             }
-          }
+          ]
+        },
+        updateList: {
+          set: [
+            {
+              equal: {
+                first: {
+                  completed: false
+                },
+                second: {
+                  completed: true
+                }
+              }
+            }
+          ]
         }
       }
     })
@@ -225,14 +215,10 @@ describe('editListItem', () => {
       presets: {},
       expectations: {
         resetAction: {
-          set: {
-            count: 0
-          }
+          set: []
         },
         updateMode: {
-          set: {
-            count: 0
-          }
+          set: []
         }
       }
     })
@@ -248,14 +234,10 @@ describe('editListItem', () => {
       },
       expectations: {
         resetAction: {
-          set: {
-            count: 0
-          }
+          set: []
         },
         updateMode: {
-          set: {
-            count: 0
-          }
+          set: []
         }
       }
     })
@@ -280,24 +262,26 @@ describe('editListItem', () => {
       },
       expectations: {
         resetAction: {
-          set: {
-            count: 1,
-            equal: {
-              type: undefined,
-              value: undefined,
+          set: [
+            {
+              equal: {
+                type: undefined,
+                value: undefined,
+              }
             }
-          }
+          ]
         },
         updateMode: {
-          set: {
-            count: 1,
-            equal: {
-              data: {
-                completed: false
-              },
-              type: 'edit'
+          set: [
+            {
+              equal: {
+                data: {
+                  completed: false
+                },
+                type: 'edit'
+              }
             }
-          }
+          ]
         }
       }
     })

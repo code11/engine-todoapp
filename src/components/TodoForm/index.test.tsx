@@ -5,6 +5,22 @@ const [stateProducer] = TodoForm.producers
 
 jest.useFakeTimers();
 
+beforeEach(() => {
+  jest.spyOn(global.Math, 'random').mockReturnValue({
+    toString: (foo) => {
+      return {
+        substring(bar) {
+          return '123'
+        }
+      }
+    }
+  });
+});
+
+afterEach(() => {
+  jest.spyOn(global.Math, 'random').mockRestore();
+})
+
 // @ts-ignore
 describe('stateProducer', () => {
   test("Guard stateProducer no form", () => {
@@ -12,11 +28,7 @@ describe('stateProducer', () => {
       producer: stateProducer, 
       presets: {},
       expectations: {
-        updateState: {
-          set: {
-            count: 0
-          }
-        }
+        updateState: []
       }
     })
   });
@@ -29,17 +41,18 @@ describe('stateProducer', () => {
       },
       expectations: {
         updateState: {
-          set: {
-            count: 1,
-            match: {
-              data: {
-                title: "",
-                description: "",
-                completed: false,
-                id: expect.any(String)
+          set: [
+            {
+              match: {
+                data: {
+                  title: "",
+                  description: "",
+                  completed: false,
+                  id: expect.any(String)
+                }
               }
             }
-          }
+          ]
         }
       }
     })  
@@ -61,17 +74,18 @@ describe('stateProducer', () => {
       },
       expectations: {
         updateState: {
-          set: {
-            count: 1,
-            match: {
-              data: {
-                title: "test",
-                description: "description",
-                completed: false,
-                id: "123"
+          set: [
+            {
+              match: {
+                data: {
+                  title: "test",
+                  description: "description",
+                  completed: false,
+                  id: "123"
+                }
               }
             }
-          }
+          ]
         }
       }
     })  

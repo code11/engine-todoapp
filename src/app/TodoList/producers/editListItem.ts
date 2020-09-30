@@ -1,4 +1,4 @@
-import { view, producer, Observe, Path, Update, Get } from "@c11/engine.macro";
+import { producer, Observe, Path, Update, Get } from "@c11/engine.macro";
 
 export const editListItem: producer = ({
     action = Observe.todo.action,

@@ -1,30 +1,13 @@
-import TodoForm from './index';
-import testFramework from '../../../test'
-
-const [stateProducer] = TodoForm.producers
+import { FormatListNumbered } from '@material-ui/icons';
+import { testProducer } from '../../../../test'
+import { stateProducer } from "./stateProducer";
 
 jest.useFakeTimers();
-
-beforeEach(() => {
-  jest.spyOn(global.Math, 'random').mockReturnValue({
-    toString: (foo) => {
-      return {
-        substring(bar) {
-          return '123'
-        }
-      }
-    }
-  });
-});
-
-afterEach(() => {
-  jest.spyOn(global.Math, 'random').mockRestore();
-})
 
 // @ts-ignore
 describe('stateProducer', () => {
   test("Guard stateProducer no form", () => {
-    testFramework.testifyProducer({
+    testProducer({
       producer: stateProducer, 
       presets: {},
       expectations: {
@@ -32,24 +15,23 @@ describe('stateProducer', () => {
       }
     })
   });
-  
+
   test("Component stateProducer state initiates on new form", () => {
-    testFramework.testifyProducer({
+    testProducer({
       producer: stateProducer, 
       presets: {
-        form: {}
+        form: {},
+        randomFloat: () => 0.43434325
       },
       expectations: {
         updateState: {
           set: [
             {
-              match: {
-                data: {
-                  title: "",
-                  description: "",
-                  completed: false,
-                  id: expect.any(String)
-                }
+              data: {
+                title: "",
+                description: "",
+                completed: false,
+                id: 'eczmz8'
               }
             }
           ]
@@ -59,7 +41,7 @@ describe('stateProducer', () => {
   });
   
   test("Component stateProducer state initiates on edit form", () => {
-    testFramework.testifyProducer({
+    testProducer({
       producer: stateProducer, 
       presets: {
         form: {
@@ -76,13 +58,11 @@ describe('stateProducer', () => {
         updateState: {
           set: [
             {
-              match: {
-                data: {
-                  title: "test",
-                  description: "description",
-                  completed: false,
-                  id: "123"
-                }
+              data: {
+                title: "test",
+                description: "description",
+                completed: false,
+                id: "123"
               }
             }
           ]

@@ -65,6 +65,7 @@ const TodoForm: view = ({
   );
 };
 
+// @ts-ignore
 TodoForm.producers = Object.values(producers);
 
 export default TodoForm;

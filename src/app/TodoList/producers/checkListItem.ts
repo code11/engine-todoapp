@@ -1,15 +1,17 @@
-import { view, producer, Observe, Path, Update, Get } from "@c11/engine.macro";
+import { producer, Observe, Path, Update, Get } from "@c11/engine.macro";
 
-export const deleteListItem: producer = ({
+export const checkListItem: producer = ({
     action = Observe.todo.action,
     resetAction = Update.todo.action,
     updateList = Update.todo.byId,
     listGetter = Get.todo.byId,
   }) => {
     if (!action) return
-    if (action.type !== "delete") return;
+    if (!["check", "uncheck"].includes(action.type)) return;
     const list = listGetter();
-    delete list[action.value];
+    Object.assign(list[action.value], {
+      completed: action.type === "check" ? true : false,
+    });
     updateList.set(list);
     resetAction.set({
       type: undefined,

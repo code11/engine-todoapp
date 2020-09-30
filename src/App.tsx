@@ -1,7 +1,7 @@
 import React from "react";
 import { view, Observe, Update } from "@c11/engine.macro";
-import TodoList from "./TodoList";
-import TodoForm from "./TodoForm";
+import TodoList from "./TodoList/components";
+import TodoForm from "./TodoForm/components";
 import Grid from "@material-ui/core/Grid";
 
 const App: view = ({

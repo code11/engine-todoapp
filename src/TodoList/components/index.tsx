@@ -4,8 +4,9 @@ import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import ActionIcons from "../../components/ActionIcons";
+import ActionIcons from "../../ActionIcons/components";
 import { view, producer, Observe, Path, Update, Get } from "@c11/engine.macro";
+import * as producers from '../producers'
 
 const TodoList: view = ({ list = Observe.todo.byId, mode = Update.mode }) => {
   return (
@@ -49,60 +50,8 @@ const TodoList: view = ({ list = Observe.todo.byId, mode = Update.mode }) => {
     </>
   );
 };
-const deleteListItem: producer = ({
-  action = Observe.todo.action,
-  resetAction = Update.todo.action,
-  updateList = Update.todo.byId,
-  listGetter = Get.todo.byId,
-}) => {
-  if (!action) return
-  if (action.type !== "delete") return;
-  const list = listGetter();
-  delete list[action.value];
-  updateList.set(list);
-  resetAction.set({
-    type: undefined,
-    value: undefined,
-  });
-};
-const checkListItem: producer = ({
-  action = Observe.todo.action,
-  resetAction = Update.todo.action,
-  updateList = Update.todo.byId,
-  listGetter = Get.todo.byId,
-}) => {
-  if (!action) return
-  if (!["check", "uncheck"].includes(action.type)) return;
-  const list = listGetter();
-  Object.assign(list[action.value], {
-    completed: action.type === "check" ? true : false,
-  });
-  updateList.set(list);
-  resetAction.set({
-    type: undefined,
-    value: undefined,
-  });
-};
 
-const editListItem: producer = ({
-  action = Observe.todo.action,
-  resetAction = Update.todo.action,
-  updateMode = Update.mode,
-  listGetter = Get.todo.byId,
-}) => {
-  if (!action) return
-  if (action.type !== "edit") return;
-  updateMode.set({
-    type: "edit",
-    data: {
-      ...listGetter()[action.value],
-    },
-  });
-  resetAction.set({
-    type: undefined,
-    value: undefined,
-  });
-};
-TodoList.producers = [deleteListItem, checkListItem, editListItem];
+// @ts-ignore
+TodoList.producers = Object.values(producers);
 
 export default TodoList;

@@ -8,8 +8,7 @@ module.exports = {
   testRegex: "(/(src|specs)/.*(\\.|/)(test|spec))\\.(ts|js)x?$",
   coverageDirectory: "coverage",
   collectCoverageFrom: [
-    "packages/*/src/**/*.{ts,tsx,js,jsx}",
-    "!packages/**/src/*.d.ts",
+    "src/**/*.{ts,tsx,js,jsx}"
   ],
   coverageThreshold: {
     global: {

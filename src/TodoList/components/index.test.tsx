@@ -1,5 +1,5 @@
 import TodoList from './index';
-import testFramework from '../../test'
+import testFramework from '../../../test'
 
 const [deleteListItem, checkListItem, editListItem] = TodoList.producers
 

@@ -1,5 +1,5 @@
 import TodoForm from './index';
-import testFramework from '../../test'
+import testFramework from '../../../test'
 
 const [stateProducer] = TodoForm.producers
 

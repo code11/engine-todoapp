@@ -14,6 +14,7 @@ import Box from "@material-ui/core/Box";
 import Input from "@material-ui/core/Input";
 import SaveIcon from "@material-ui/icons/Save";
 import Button from "@material-ui/core/Button";
+import * as producers from '../producers'
 
 const TodoForm: view = ({
   formData = Observe.todoForm.data,
@@ -64,20 +65,6 @@ const TodoForm: view = ({
   );
 };
 
-const stateProducer: producer = ({ form, updateState = Update.todoForm }) => {
-  if(!form) return
-  
-  let state = {
-    title: "",
-    description: "",
-    completed: false,
-    id: Math.random().toString(36).substring(7),
-  };
-  if (form.type === "edit") {
-    state = form.data;
-  }
-  updateState.set({ data: state });
-};
-TodoForm.producers = [stateProducer];
+TodoForm.producers = Object.values(producers);
 
 export default TodoForm;

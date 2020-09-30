@@ -1,6 +1,6 @@
 import React from "react";
 import { Engine } from "@c11/engine.react";
-import App from "./components/App";
+import App from "./App";
 
 const todos = {
   id00: {

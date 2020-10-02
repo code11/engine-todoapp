@@ -1,7 +1,11 @@
 module.exports = {
   testEnvironment: "jsdom",
+  verbose: false,
+  setupFilesAfterEnv: ['./setupTests.js'],
   transform: {
     "^.+\\.[t|j]sx?$": "babel-jest",
+    '^.+\\.css$': 'jest-transform-css',
+    '\\.(jpg|jpeg|png|gif|webp|svg)$': 'jest-transform-file'
   },
   rootDir: "./",
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
@@ -9,6 +13,10 @@ module.exports = {
   coverageDirectory: "coverage",
   collectCoverageFrom: [
     "src/app/**/*.{ts,tsx,js,jsx}"
+  ],
+  "reporters": [
+    "default",
+    "jest-screenshot/reporter"
   ],
   coverageThreshold: {
     global: {

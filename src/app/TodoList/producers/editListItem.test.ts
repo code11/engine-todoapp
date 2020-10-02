@@ -1,81 +1,73 @@
-import { testProducer } from '../../../../test'
+import Test from '../../../../Test'
 import { editListItem } from './editListItem'
-
-jest.useFakeTimers();
 
 // @ts-ignore
 describe('editListItem', () => {
-  test("Guard action doesn't exist", () => {
-    testProducer({
-      producer: editListItem, 
-      presets: {},
-      expectations: {
-        resetAction: {
-          set: []
-        },
-        updateMode: {
-          set: []
-        }
-      }
-    })
-  });
-  
-  test("Guard action type is not edit", () => {
-    testProducer({
-      producer: editListItem, 
-      presets: {
-        action: {
-          type: 'not edit'
-        }
+  Test.producer("Guard action doesn't exist", {
+    producer: editListItem, 
+    presets: {},
+    expectations: {
+      resetAction: {
+        set: []
       },
-      expectations: {
-        resetAction: {
-          set: []
+      updateMode: {
+        set: []
+      }
+    }
+  })
+  
+  Test.producer("Guard action type is not edit", {
+    producer: editListItem, 
+    presets: {
+      action: {
+        type: 'not edit'
+      }
+    },
+    expectations: {
+      resetAction: {
+        set: []
+      },
+      updateMode: {
+        set: []
+      }
+    }
+  })
+  
+  Test.producer("List item is edited", {
+    producer: editListItem, 
+    presets: {
+      action: {
+        type: 'edit',
+        value: 'first'
+      },
+      listGetter: {
+        first: {
+          completed: false
         },
-        updateMode: {
-          set: []
+        second: {
+          completed: true
         }
       }
-    })
-  });
-  
-  test("List item is edited", () => {
-    testProducer({
-      producer: editListItem, 
-      presets: {
-        action: {
-          type: 'edit',
-          value: 'first'
-        },
-        listGetter: {
-          first: {
-            completed: false
-          },
-          second: {
-            completed: true
+    },
+    expectations: {
+      resetAction: {
+        set: [
+          {
+            type: undefined,
+            value: undefined,
           }
-        }
+        ]
       },
-      expectations: {
-        resetAction: {
-          set: [
-            {
-              type: undefined,
-              value: undefined,
-            }
-          ]
-        },
-        updateMode: {
-          set: [
-            {
-              data: {
-                completed: false
-              },
-              type: 'edit'
-            }
-          ]
-        }
+      updateMode: {
+        set: [
+          {
+            data: {
+              completed: false
+            },
+            type: 'edit'
+          }
+        ]
       }
-    })
-  });
+    }
+  })
 })

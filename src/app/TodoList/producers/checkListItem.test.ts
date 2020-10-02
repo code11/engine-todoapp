@@ -1,125 +1,115 @@
-import { testProducer } from '../../../../test'
+import Test from '../../../../Test'
 import { checkListItem } from './checkListItem'
-
-jest.useFakeTimers();
 
 // @ts-ignore
 describe('checkListItem', () => {
-  test("Guard action doesn't exist", () => {
-    testProducer({
-      producer: checkListItem, 
-      presets: {},
-      expectations: {
-        resetAction: {
-          set: []
-        },
-        updateList: {
-          set: []
-        }
+  Test.producer("Guard action doesn't exist", {
+    producer: checkListItem, 
+    presets: {},
+    expectations: {
+      resetAction: {
+        set: []
+      },
+      updateList: {
+        set: []
       }
-    })
-  });
+    }
+  })
   
-  test("Guard action type is not check or uncheck", () => {
-    testProducer({
-      producer: checkListItem, 
-      presets: {
-        action: {
-          type: 'not check or uncheck'
-        }
-      },
-      expectations: {
-        resetAction: {
-          set: []
-        },
-        updateList: {
-          set: []
-        }
+  Test.producer("Guard action type is not check or uncheck",{
+    producer: checkListItem, 
+    presets: {
+      action: {
+        type: 'not check or uncheck'
       }
-    })
-  });
+    },
+    expectations: {
+      resetAction: {
+        set: []
+      },
+      updateList: {
+        set: []
+      }
+    }
+  })
   
-  test("List item is checked", () => {
-    testProducer({
-      producer: checkListItem, 
-      presets: {
-        action: {
-          type: 'check',
-          value: 'first'
-        },
-        listGetter: {
-          first: {
-            completed: false
-          },
-          second: {
-            completed: true
-          }
-        }
+  Test.producer("List item is checked", {
+    producer: checkListItem, 
+    presets: {
+      action: {
+        type: 'check',
+        value: 'first'
       },
-      expectations: {
-        resetAction: {
-          set: [
-            {
-                type: undefined,
-                value: undefined,
-            }
-          ]
+      listGetter: {
+        first: {
+          completed: false
         },
-        updateList: {
-          set: [
-            {
-              first: {
-                completed: true
-              },
-              second: {
-                completed: true
-              }
-            }
-          ]
+        second: {
+          completed: true
         }
       }
-    })
-  });
-
-  test("List item is unchecked", () => {
-    testProducer({
-      producer: checkListItem, 
-      presets: {
-        action: {
-          type: 'uncheck',
-          value: 'first'
-        },
-        listGetter: {
-          first: {
-            completed: true
-          },
-          second: {
-            completed: true
-          }
-        }
-      },
-      expectations: {
-        resetAction: {
-          set: [
-            {
+    },
+    expectations: {
+      resetAction: {
+        set: [
+          {
               type: undefined,
               value: undefined,
+          }
+        ]
+      },
+      updateList: {
+        set: [
+          {
+            first: {
+              completed: true
+            },
+            second: {
+              completed: true
             }
-          ]
+          }
+        ]
+      }
+    }
+  })
+
+  Test.producer("List item is unchecked", {
+    producer: checkListItem, 
+    presets: {
+      action: {
+        type: 'uncheck',
+        value: 'first'
+      },
+      listGetter: {
+        first: {
+          completed: true
         },
-        updateList: {
-          set: [
-            {
-              first: {
-                completed: false
-              },
-              second: {
-                completed: true
-              }
-            }
-          ]
+        second: {
+          completed: true
         }
       }
-    })
-  });
+    },
+    expectations: {
+      resetAction: {
+        set: [
+          {
+            type: undefined,
+            value: undefined,
+          }
+        ]
+      },
+      updateList: {
+        set: [
+          {
+            first: {
+              completed: false
+            },
+            second: {
+              completed: true
+            }
+          }
+        ]
+      }
+    }
+  })
 })

@@ -36,7 +36,6 @@ const TodoForm: view = ({
         />
         <TextField
           label="Description"
-          multiline
           value={formData.description}
           onChange={(event) => {
             updateDescripton.set(event.target.value);
